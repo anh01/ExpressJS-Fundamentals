@@ -36,7 +36,7 @@ module.exports = (req, res) => {
             let products = database.products.getAll()
 
             let content = ''
-
+            console.log(products)
             for (let product of products) {
 
                 content +=
@@ -47,6 +47,7 @@ module.exports = (req, res) => {
                     </div>`
             }
 
+
             let html = data.toString().replace('{content}', content)
 
             res.writeHead(200, {
@@ -54,7 +55,7 @@ module.exports = (req, res) => {
                 'Content-Type' : 'text/html'
             })
 
-            res.write(data)
+            res.write(html)
             res.end()
 
         })
