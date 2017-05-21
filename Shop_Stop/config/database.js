@@ -21,7 +21,7 @@ module.exports.products.findByName = (name) => {
     let product = null
     for (let p of products) {
 
-        if (p === name ) {
+        if (p.name === name ) {
 
             return p
         }

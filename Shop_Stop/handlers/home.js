@@ -5,6 +5,7 @@ const url = require('url')
 const fs = require('fs')
 const path = require('path')
 const database = require('../config/database')
+const qs = require('querystring')
 
 
 module.exports = (req, res) => {
@@ -33,10 +34,21 @@ module.exports = (req, res) => {
 
             }
 
+            let queryData = qs.parse(url.parse(req.url).query)
+
             let products = database.products.getAll()
 
+            if (queryData.query) {
+
+                products = products.filter((p) => {
+
+                    return p.name.toLowerCase().includes(queryData.query.toLowerCase())
+                })
+
+            }
+
             let content = ''
-            console.log(products)
+
             for (let product of products) {
 
                 content +=
