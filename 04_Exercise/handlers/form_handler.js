@@ -25,7 +25,7 @@ exports.method = (req, res) => {
               fs.mkdirSync(`./content/pictures/${folderToSave}`)
           }
 
-          //console.log(files.picture)
+
           picture.name = fields.name
           picture.url =  shortid.generate()
 

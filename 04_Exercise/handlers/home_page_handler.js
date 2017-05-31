@@ -16,7 +16,7 @@ module.exports = (req, res) => {
         'Content-Type': 'text/html'
       })
 
-      //console.log(db)
+
       let content = ''
 
       for (let picture of db) {
