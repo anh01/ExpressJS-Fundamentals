@@ -5,8 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const dbPath = path.join(__dirname, '/database.json')
 
-
-
 module.exports.pictures = {}
 
 module.exports.pictures.getAll = getPictures
@@ -21,7 +19,7 @@ module.exports.pictures.add = (picture) => {
 }
 
 module.exports.pictures.findByUrl = (url) => {
-    return getPictures().filter(p => p.url == url)
+  return getPictures().filter(p => p.url == url)
 }
 
 function getPictures () {

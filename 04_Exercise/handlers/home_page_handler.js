@@ -2,7 +2,7 @@
  * Created by apetrov on 5/29/2017.
  */
 const fs = require('fs')
-const db = require('../database/database').pictures.getAll()
+const db = require('../database/database')
 
 module.exports = (req, res) => {
   if (req.path === '/') {
@@ -16,10 +16,9 @@ module.exports = (req, res) => {
         'Content-Type': 'text/html'
       })
 
-
       let content = ''
 
-      for (let picture of db) {
+      for (let picture of db.pictures.getAll()) {
         content +=
                         `<div><a href= "/content/download/${picture.url}" download> <h2>${picture.name}</h2></div>`
       }
