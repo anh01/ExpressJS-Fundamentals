@@ -4,9 +4,7 @@
 let homeHandler = require('./home_page_handler')
 let faviconHandler = require('./favicon_handler')
 let staticHandler = require('./static_file_handler')
-let formHandler = require('./form_handler')
+let formHandler = require('./form_handler').method
+let detailedHandler = require('./detailed_page_handler')
 
-module.exports = [formHandler, homeHandler, faviconHandler, staticHandler ]
-
-
-
+module.exports = [formHandler, homeHandler, faviconHandler, detailedHandler, staticHandler]

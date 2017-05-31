@@ -2,24 +2,29 @@
  * Created by apetrov on 5/29/2017.
  */
 let qs = require('querystring')
+let pictures = []
+exports.dbpics = pictures
+exports.method = (req, res) => {
+  let picture = {}
 
-module.exports = (req, res) => {
+  if (req.method == 'POST') {
+    let data = ''
 
-    if (req.method === 'POST') {
+    req.on('data', function (chunk) {
+      data += chunk
+    })
 
-        let body = '';
-        req.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        req.on('end', function () {
-            let data = qs.parse(body);
-            console.log('ga')
-            res.writeHead(200);
-            res.end();
-        });
-    } else {
-       return true
-    }
-
+    req.on('end', function () {
+      let parsedData = qs.parse(data)
+      picture.name = parsedData.name
+      picture.url = parsedData.url
+      pictures.push(picture)
+      res.writeHead(302, {
+        Location: '/'
+      })
+      res.end()
+    })
+  } else {
+    return true
+  }
 }

@@ -10,17 +10,13 @@ let handlers = require('./handlers/index')
 http.createServer((req, res) => {
   req.path = url.parse(req.url).pathname
 
-    for(let handler of handlers ) {
+  for (let handler of handlers) {
+    let nexthandler = handler(req, res)
 
-        let nexthandler = handler(req, res)
-
-        if (!nexthandler) {
-            break
-        }
-
+    if (!nexthandler) {
+      break
     }
-
-
+  }
 }).listen(port)
 
 console.log(`Server is listening on ${port}`)
