@@ -2,24 +2,29 @@
  * Created by Toni on 5/29/2017.
  */
 const db = require('../database/database').pictures
+const fs = require('fs')
+
 
 module.exports = (req, res) => {
   if (req.path.startsWith('/content/download/')) {
     let url = req.path.slice(-9)
 
-    res.writeHead(200, {
+      console.log(url)
 
-      'Content-Type': 'text/html'
-    })
-
-      db.findByUrl(url)
+      let picture = db.findByUrl(url)
 
 
+      let filePath = picture[0].path;
+      let stat = fs.statSync(filePath);
 
-    let html = `<html><img src="${db.url}" height="250" width="250"></html>`
+      res.writeHead(200, {
+          'Content-Type': 'image/jpeg',
+          'Content-Length': stat.size
+      });
 
-    res.write(html)
-    res.end()
+      let readStream = fs.createReadStream(filePath);
+
+      readStream.pipe(res);
   } else {
     return true
   }

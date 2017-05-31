@@ -21,7 +21,7 @@ module.exports.pictures.add = (picture) => {
 }
 
 module.exports.pictures.findByUrl = (url) => {
-  return getPictures().filter(p => p.url.includes(url))
+    return getPictures().filter(p => p.url == url)
 }
 
 function getPictures () {
