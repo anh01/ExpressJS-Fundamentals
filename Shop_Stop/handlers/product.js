@@ -2,12 +2,15 @@
  * Created by Toni on 5/21/2017.
  */
 const url = require('url')
-const database = require('../config/database')
+// const database = require('../config/database')
 const fs = require('fs')
 const path = require('path')
 const qs = require('querystring')
 const multiparty = require('multiparty')
 const shortid = require('shortid')
+const Category = require('../models/category')
+
+const Product = require('../models/product')
 
 module.exports = (req, res) => {
   req.pathname = req.pathname || url.parse(req.url).pathname
@@ -20,12 +23,23 @@ module.exports = (req, res) => {
         console.log(err)
       }
 
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      })
+      Category.find().then((categories) => {
+        let replacement = '<select class="input-field" name="category">'
+        for (let category of categories) {
 
-      res.write(data)
-      res.end()
+        }
+
+        replacement += '</select>'
+
+        let html = data.toString().replace('{categories}', replacement)
+
+        res.writeHead(200, {
+          'Content-Type': 'text/html'
+        })
+
+        res.write(html)
+        res.end()
+      })
     })
   } else if (req.pathname === '/product/add' && req.method === 'POST') {
     let form = new multiparty.Form()
@@ -68,11 +82,17 @@ module.exports = (req, res) => {
     })
 
     form.on('close', () => {
-      database.products.add(product)
-      res.writeHead(302, {
-        Location: '/'
+      Product.create(product).then((insertedProduct) => {
+        Category.findById(product.category).then(category => {
+          category.products.push(insertedProduct._id)
+          category.save()
+        })
+
+        res.writeHead(302, {
+          Location: '/'
+        })
+        res.end()
       })
-      res.end()
     })
 
     form.parse(req)
