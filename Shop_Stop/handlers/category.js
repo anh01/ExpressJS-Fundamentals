@@ -1,49 +1,21 @@
 /**
  * Created by Toni on 6/1/2017.
  */
-const url = require('url')
-const fs = require('fs')
+
 const Category = require('../models/category')
-const qs = require('querystring')
 
-module.exports = (req, res) => {
-  req.pathname = req.pathname || url.parse(req.parse).pathname
 
-  if (req.pathname === '/category/add' && req.method === 'GET') {
-    fs.readFile('./views/category/add.html', (err, data) => {
-      if (err) {
-        console.log(err)
-        return
-      }
+module.exports.addGet = (req, res) => {
 
-      res.writeHead(200, {
 
-        'Content-Type': 'text/html'
-      })
+    res.render('category/add')
+}
 
-      res.write(data)
-      res.end()
+module.exports.addPost = (req, res) => {
+
+    let category = req.body
+
+    Category.create(category).then(() => {
+        res.redirect('/')
     })
-  } else if (req.pathname === '/category/add' && req.method === 'POST') {
-    let queryData = ''
-    req.on('data', (data) => {
-      queryData += data
-    })
-
-    req.on('end', () => {
-      let category = qs.parse(queryData)
-
-      Category.create(category).then(() => {
-        res.writeHead(302, {
-
-          Location: '/'
-
-        })
-
-        res.end()
-      })
-    })
-  } else {
-    return true
-  }
 }

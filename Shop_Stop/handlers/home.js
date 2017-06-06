@@ -1,16 +1,14 @@
 /**
  * Created by Toni on 5/21/2017.
  */
-const url = require('url')
+
 const fs = require('fs')
 const path = require('path')
 const Product = require('../models/product')
-const qs = require('querystring')
 
-module.exports = (req, res) => {
-  req.pathname = req.pathname || url.parse(req.url).pathname
 
-  if (req.pathname === '/' && req.method === 'GET') {
+module.exports.index = (req, res) => {
+
     let filePath = path.normalize(
             path.join(__dirname, '../views/home/index.html'))
 
@@ -26,7 +24,11 @@ module.exports = (req, res) => {
         return
       }
 
-      let queryData = qs.parse(url.parse(req.url).query)
+      res.writeHead(200, {
+        'Content-Type' : 'text/html'
+      })
+
+      let queryData = req.query
 
       Product.find().then((products) => {
         if (queryData.query) {
@@ -57,7 +59,5 @@ module.exports = (req, res) => {
         res.end()
       })
     })
-  } else {
-    return true
   }
-}
+
