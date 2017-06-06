@@ -11,8 +11,23 @@ module.exports = (app, config) => {
 
     app.use(bodyParser.urlencoded({extended: true}))
 
-    app.use(express.static(
+    app.use((req, res, next) => {
+
+        if (req.url.startsWith('/content')) {
+
+            req.url = req.url.replace('/content', '')
+        }
+
+        next()
+    }, express.static(
         path.normalize(
             path.join(config.rootPath, 'content'))))
 
+
+        app.set('view engine', 'pug')
+        app.set('views', path.join(config.rootPath, 'views'))
+
+
+
 }
+

@@ -7,57 +7,29 @@ const path = require('path')
 const Product = require('../models/product')
 
 
+
 module.exports.index = (req, res) => {
-
-    let filePath = path.normalize(
-            path.join(__dirname, '../views/home/index.html'))
-
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        console.log(err)
-        res.writeHead(404, {
-          'Content-Type': 'text/plain'
-        })
-
-        res.write('404 Not Found!')
-        res.end()
-        return
-      }
-
-      res.writeHead(200, {
-        'Content-Type' : 'text/html'
-      })
 
       let queryData = req.query
 
-      Product.find().then((products) => {
+      Product.find().populate('category').then((products) => {
         if (queryData.query) {
           products = products.filter((p) => {
             return p.name.toLowerCase().includes(queryData.query.toLowerCase())
           })
         }
 
-        let content = ''
+        let data = {products: products}
 
-        for (let product of products) {
-          content +=
-                    `<div class="product-card">
-                    <img class="product-img" src="${product.image}">
-                    <h2>${product.name}</h2>
-                    <p>${product.description}</p>
-                    </div>`
+        if (req.query.error) {
+            data.error = req.query.error
+        } else if (req.query.success) {
+
+            data.success = req.query.success
         }
 
-        let html = data.toString().replace('{content}', content)
-
-        res.writeHead(200, {
-
-          'Content-Type': 'text/html'
-        })
-
-        res.write(html)
-        res.end()
+       res.render('home/index', data)
       })
-    })
+
   }
 
