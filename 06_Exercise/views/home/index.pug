@@ -2,3 +2,12 @@ extends ../layout.pug
 
 block content
     h2 Here is the home page
+
+    a(class='button' href='bike/add') Add bike
+
+
+    each bike in bikes
+        div
+            h2= bike.model
+            p= bike.description
+            img(src=bike.image)

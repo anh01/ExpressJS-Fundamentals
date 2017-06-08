@@ -28,5 +28,5 @@ module.exports = ((config) => {
         console.log(err)
     })
 
-
+        require("../models/bike")
 })

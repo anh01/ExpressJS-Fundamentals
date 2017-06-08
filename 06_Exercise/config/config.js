@@ -8,7 +8,7 @@ module.exports = {
 
     development: {
 
-        connectionString: "mongodb://localhost:27017/food-catalog",
+        connectionString: "mongodb://localhost:27017/bike-catalog",
         rootPath: path.normalize(path.join(__dirname, '../'))
 
     },

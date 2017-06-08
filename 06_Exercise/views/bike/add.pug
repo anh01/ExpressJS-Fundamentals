@@ -1,0 +1,14 @@
+extends ../layout
+block content
+    form(method='POST', enctype="multipart/form-data")
+        div.form-group
+            label(for='model') Model:
+            input#name.form-control(type='text', placeholder='Bike model' name='model')
+        div.form-group
+            label(for='description') Description:
+            input#email.form-control(type='textarea', placeholder='some description' name='description')
+        div.form-group
+            label(for='image') Image upload:
+            input#favoriteBook.form-control(type='file', placeholder='image of the bike' name='image')
+
+            button.btn.btn-primary(type='submit') Add bike
