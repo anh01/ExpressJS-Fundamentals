@@ -3,6 +3,17 @@ html
         title My awesome Site - #{title}
 
     body
+        block header
+            nav
+             ul
+                 li
+                    a(href = "/") Home
+                 li
+                    a(href = "/about") About
+                 li
+                    a(href = "/contact-us") Contact us
+
+
         block content
         block foot
             #footer
