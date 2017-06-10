@@ -24,4 +24,5 @@ module.exports = (config) => {
 
   require('../models/product')
   require('../models/category')
+    require('../models/user').seedAdminUser()
 }

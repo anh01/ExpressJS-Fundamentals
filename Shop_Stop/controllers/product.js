@@ -29,6 +29,7 @@ module.exports.addGet = (req, res) => {
 
 
       productObj.image = '\\' + req.file.path
+      productObj.creator = req.user._id
 
       Product.create(productObj).then((product) =>{
 
@@ -53,6 +54,10 @@ module.exports.addGet = (req, res) => {
               return
           }
 
+
+          if (product.creator.equals(req.user._id) || req.user.roles.indexOf('Admin') >=0 ) {
+
+
           Category.find().then((categories) =>{
 
               res.render('product/edit', {
@@ -61,7 +66,14 @@ module.exports.addGet = (req, res) => {
               })
 
           })
+
+
+  } else {
+
+              res.render('user/login')
+          }
       })
+
   }
 
 
@@ -138,6 +150,10 @@ module.exports.addGet = (req, res) => {
 
   module.exports.deleteGet = (req, res) =>{
 
+
+
+
+
       let id = req.params.id
       Product.findById(id).then(product =>{
 
@@ -212,5 +228,35 @@ module.exports.buyGet = (req, res) => {
         })
     })
 
+
+}
+
+module.exports.buyPost = (req, res) =>{
+
+    let productId = req.params.id
+
+    Product.findById(productId).then((product)=>{
+
+        if (product.buyer) {
+
+            let error = `error = ${encodeURIComponent('Product was already bought')}`
+            res.redirect(`/?${error}`)
+
+            return
+        }
+
+        product.buyer = req.user._id
+        product.save().then(()=>{
+
+            req.user.boughtProducts.push(productId)
+            req.user.save().then(() => {
+
+                res.redirect('/')
+
+            })
+
+        })
+
+    })
 
 }
