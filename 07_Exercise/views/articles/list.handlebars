@@ -1,0 +1,11 @@
+{{#each articles}}
+
+    <h2>{{this.title}}</h2>
+    <p>{{this.description}}</p>
+    <form action="/article/details/{{this._id}}" method="post">
+    <input type="submit" value="Get details">
+    </form>
+{{/each}}
+
+
+
