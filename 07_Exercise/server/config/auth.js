@@ -22,22 +22,33 @@ module.exports = {
 
               let articleId = req.params.id
 
-
-             Article.findById(articleId).then((articleFound) =>{
-
-                 let userId = articleFound.author.toString()
-
-                 let currentUserId = req.user._id.toString()
+             if (req.isAuthenticated()) {
 
 
-                 if (req.isAuthenticated() && userId === currentUserId) {
-                     next()
-                 } else {
-                     res.locals.globalError = 'Your are not owner!'
-                     res.render('users/login')
-                 }
+                 Article.findById(articleId).then((articleFound) =>{
 
-             })
+                     let userId = articleFound.author.toString()
+
+                     let currentUserId = req.user._id.toString()
+
+
+                     if (userId === currentUserId) {
+                         next()
+                     } else {
+                         res.locals.globalError = 'Your are not owner!'
+                         res.render('home/index')
+                     }
+
+                 })
+
+
+             } else {
+                 res.locals.globalError = 'You are not logged in!'
+                 res.render('home/index')
+             }
+
+
+
 
 
 
