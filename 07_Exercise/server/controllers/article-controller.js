@@ -69,7 +69,7 @@ module.exports.editGet = (req, res) => {
 
         res.locals.data = article
 
-        console.log('tyk')
+
         res.render('articles/edit')
 
     })
@@ -93,11 +93,29 @@ module.exports.editPost = (req, res) => {
         })
 
 
-
     })
 
 
+}
+
+module.exports.deletePost = (req, res) => {
+
+    let articleId = req.params.id
+
+    Article.findById(articleId).then((foundArticle) => {
+
+        User.findById(foundArticle.author).then((user) => {
+
+            let index = user.articles.indexOf(articleId);
+            user.articles.splice(index, 1);
+            foundArticle.remove()
+            user.save()
+
+            res.locals.globalError = 'Deleted'
+            res.render('home/index')
+
+        })
 
 
-
+    })
 }

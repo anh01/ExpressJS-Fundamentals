@@ -18,8 +18,10 @@ module.exports = (app) => {
 
     app.post('/article/details/:id',auth.isAuthenticated, controllers.articles.detailsGet)
 
-    app.get('/article/edit/:id',auth.isAuthor, controllers.articles.editGet)
-    app.post('/article/edit/:id',auth.isAuthor, controllers.articles.editPost)
+    app.get('/article/edit/:id',auth.isAuthorOrAdmin, controllers.articles.editGet)
+    app.post('/article/edit/:id',auth.isAuthorOrAdmin, controllers.articles.editPost)
+
+    app.post('/article/delete/:id', auth.isAuthorOrAdmin, controllers.articles.deletePost)
 
 
 

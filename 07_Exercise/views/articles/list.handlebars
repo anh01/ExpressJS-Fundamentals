@@ -10,6 +10,12 @@
     <form action="/article/edit/{{this._id}}">
         <input type="submit" value="Edit">
     </form>
+
+    <form action="/article/delete/{{this._id}}" method="post">
+        <input type="submit" value="Delete">
+    </form>
+
+
 {{/each}}
 
 

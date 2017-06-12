@@ -17,7 +17,7 @@ module.exports = {
       }
     }
   },
-    isAuthor:
+    isAuthorOrAdmin:
          (req, res, next) => {
 
               let articleId = req.params.id
@@ -32,10 +32,10 @@ module.exports = {
                      let currentUserId = req.user._id.toString()
 
 
-                     if (userId === currentUserId) {
+                     if (userId === currentUserId || req.user.roles.indexOf('Admin') > -1) {
                          next()
                      } else {
-                         res.locals.globalError = 'Your are not owner!'
+                         res.locals.globalError = 'Your are not owner or Admin!'
                          res.render('home/index')
                      }
 
