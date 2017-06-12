@@ -18,6 +18,8 @@ module.exports = (app) => {
 
     app.post('/article/details/:id',auth.isAuthenticated, controllers.articles.detailsGet)
 
+    app.post('/article/edit/:id',auth.isAuthor, controllers.articles.detailsGet)
+
 
 
   app.all('*', (req, res) => {
