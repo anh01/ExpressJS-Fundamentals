@@ -6,7 +6,8 @@ const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 let carSchema = new mongoose.Schema({
     model: { type: String, required: REQUIRED_VALIDATION_MESSAGE, unique: true },
     image: { type: String, required: REQUIRED_VALIDATION_MESSAGE },
-    price: { type: String, required: REQUIRED_VALIDATION_MESSAGE }
+    price: { type: String, required: REQUIRED_VALIDATION_MESSAGE },
+    isRented: {type: Boolean, default: false}
 
 })
 
