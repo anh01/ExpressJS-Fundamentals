@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../data/User')
 const Car = require('../data/Car')
+const Rent = require('../data/Rent')
 
 mongoose.Promise = global.Promise
 
