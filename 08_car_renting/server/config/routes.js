@@ -14,6 +14,9 @@ module.exports = (app) => {
     app.get('/cars/add', auth.isInRole('Admin'), controllers.cars.addGet)
     app.post('/cars/add', auth.isInRole('Admin'), controllers.cars.addPost)
 
+
+    app.get('/cars/all', controllers.cars.getAll)
+
   app.all('*', (req, res) => {
     res.status(404)
     res.send('404 Not Found!')

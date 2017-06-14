@@ -9,6 +9,7 @@
     <ul class="menu">
       <li><a href="/">Home</a></li>
       <li><a href="/about">About</a></li>
+        <li><a href="/cars/all">View all cars for renting</a></li>
       <li></li>
       {{#if currentUser}}
         <li>{{currentUser.username}}</li>
@@ -16,6 +17,7 @@
           <form id="logout-form" action="/users/logout" method="POST"></form>
           <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
         </li>
+
       {{#if isAdmin}}
           <li><a href="/cars/add">Add car</a></li>
               {{/if}}

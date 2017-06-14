@@ -35,3 +35,26 @@ module.exports.addPost = (req, res) => {
     })
 
 }
+
+module.exports.getAll = (req, res) => {
+
+
+    let pageSize = 10
+    let page = parseInt(req.query.page) || 1
+
+    let query = Car.find({isRented: false})
+
+    query.skip((page - 1) * pageSize).limit(pageSize).then((carsFound) => {
+
+
+        res.render('cars/all', {
+
+            cars: carsFound
+        })
+
+    })
+
+
+
+
+}
