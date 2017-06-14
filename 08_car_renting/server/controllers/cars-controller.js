@@ -38,23 +38,32 @@ module.exports.addPost = (req, res) => {
 
 module.exports.getAll = (req, res) => {
 
-
-    let pageSize = 10
+    let pageSize = 2
     let page = parseInt(req.query.page) || 1
+
+    let search = req.query.search
 
     let query = Car.find({isRented: false})
 
-    query.skip((page - 1) * pageSize).limit(pageSize).then((carsFound) => {
+    if (search) {
+        query = query.where('model').regex(new RegExp(search, 'i'))
+    }
 
+    query
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .then((carsFound) => {
 
         res.render('cars/all', {
 
-            cars: carsFound
+            cars: carsFound,
+            hasPrevPage: page > 1,
+            hasNextPage: carsFound.length > 0,
+            prevPage: page - 1,
+            nextPage: page + 1
         })
 
     })
-
-
 
 
 }

@@ -1,10 +1,30 @@
 {{#each cars}}
 
+    <form action="/cars/all" method="get">
+        <input type="text" name="search">
+        <input type="submit" value="Search">
+    </form>
+
     <div>
+        Model:
         <p>{{this.model}}</p>
        <img src="{{this.image}}" width="200px" height="200px">
+        Price:
         <p>{{this.price}}</p>
 
     </div>
 
     {{/each}}
+
+
+<div>
+    {{#if hasPrevPage}}
+            <a href="/cars/all?page={{prevPage}}">Previous Page|| </a>
+
+        {{/if}}
+    {{#if hasNextPage}}
+        <a href="/cars/all?page={{nextPage}}"> ||Next Page</a>
+
+    {{/if}}
+
+</div>
