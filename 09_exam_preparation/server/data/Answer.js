@@ -16,4 +16,4 @@ let answerSchema = new mongoose.Schema({
 
 
 
-let Answer = mongoose.model('User', answerSchema)
+let Answer = mongoose.model('Answer', answerSchema)

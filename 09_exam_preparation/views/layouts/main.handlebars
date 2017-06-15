@@ -26,6 +26,9 @@
     {{#if globalError}}
       <h3>{{globalError}}</h3>
     {{/if}}
+      {{#if globalMessage}}
+          <h4 style="color: #909;">{{globalMessage}}</h4>
+      {{/if}}
     {{{body}}}
   </div>
 </body>

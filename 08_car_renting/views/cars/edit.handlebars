@@ -1,0 +1,24 @@
+<form action="/cars/edit/{{car._id}}" method="POST">
+    Model
+    <input type="text" name="model" value="{{car.model}}" />
+    <br />
+    Image URL:
+    <input type="text" name="image" value="{{car.image}}" />
+    <br />
+    Price per day:
+    <input type="number" name="price" value="{{car.price}}" />
+    <br />
+
+    <select name="isRented">
+    <option value="{{this.isRented}}" selected>{{this.isRented}}</option>
+        {{#if this.isRented}}
+            <option value="false">Return to all. Finish renting.</option>
+            {{else}}
+            <option value="true">Make Rented</option>
+        {{/if}}
+
+</select>
+    <br />
+
+    <input type="submit" value="Edit that car" />
+</form>

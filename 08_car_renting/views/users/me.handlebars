@@ -1,0 +1,35 @@
+{{#if rents}}
+    <table border="1">
+        <tr>
+            <th>
+            Car Model
+            </th>
+            <th>
+            When
+            </th>
+            <th>
+            Total Cost
+            </th>
+        </tr>
+
+        {{#each rents}}
+
+            <tr>
+                <td>
+                    {{this.car.model}}
+                </td>
+
+                <td>
+                    {{this.rentedOn}}
+                </td>
+
+                <td>
+                    {{this.totalPrice}}
+                </td>
+            </tr>
+
+        {{/each}}
+
+    </table>
+{{/if}}
+

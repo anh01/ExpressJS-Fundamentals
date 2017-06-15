@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.post('/users/logout', controllers.users.logout)
 
     app.get('/thread/add',auth.isAuthenticated, controllers.thread.addGet)
+    app.post('/thread/add',auth.isAuthenticated, controllers.thread.addPost)
 
   app.all('*', (req, res) => {
     res.status(404)

@@ -13,4 +13,4 @@ const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
 
 
-let Thread = mongoose.model('User', threadSchema)
+let Thread = mongoose.model('Thread', threadSchema)

@@ -1,10 +1,48 @@
+<form action="/cars/all" method="get">
+    <input type="text" name="search">
+    <input type="submit" value="Search">
+</form>
+
 {{#each cars}}
 
+
+
     <div>
+        Model:
         <p>{{this.model}}</p>
        <img src="{{this.image}}" width="200px" height="200px">
+        Price:
         <p>{{this.price}}</p>
 
+        <form method="post" action="/cars/rent/{{this._id}}">
+            <select name="days">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+                <input type="submit" value="Rent">
+            </form>
+        <form method="get" action="/cars/edit">
+            <input type="hidden" name="carid" value="{{this._id}}">
+            <input type="submit" value="Edit">
+        </form>
     </div>
 
     {{/each}}
+
+
+<div>
+    {{#if hasPrevPage}}
+            <a href="/cars/all?page={{prevPage}}&search={{search}}">Previous Page|| </a>
+
+        {{/if}}
+    {{#if hasNextPage}}
+        <a href="/cars/all?page={{nextPage}}&search={{search}}"> ||Next Page</a>
+
+    {{/if}}
+
+</div>
