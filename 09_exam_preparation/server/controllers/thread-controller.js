@@ -36,8 +36,25 @@ addGet: (req, res) => {
 
 
 
-    }
+    },
 
+
+    list: () => {
+
+     return Thread.find({})
+
+    },
+
+    viewMoreGet: (req, res) => {
+
+        let thread = req.query
+
+        console.log(thread)
+
+        // res.render('thread/viewMore')
+        //
+        // }
+    }
 
 
 

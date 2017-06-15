@@ -1,1 +1,24 @@
 <h1>Welcome!</h1>
+
+{{#if threads}}
+
+        <table border="1">
+            <tr>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+        {{#each threads}}
+            <tr>
+                <td>{{@index}}</td>
+                <td>{{this.title}}</td>
+                <td><form action="/thread/?id={{this._id}}/{{this.title}}" method="get">
+                    <input type="submit" value="View More">
+                </form> </td>
+            </tr>
+        {{/each}}
+        </table>
+
+
+
+{{/if}}

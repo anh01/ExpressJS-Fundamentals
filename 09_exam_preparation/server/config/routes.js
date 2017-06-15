@@ -14,6 +14,8 @@ module.exports = (app) => {
     app.get('/thread/add',auth.isAuthenticated, controllers.thread.addGet)
     app.post('/thread/add',auth.isAuthenticated, controllers.thread.addPost)
 
+    app.get('/thread/:id/:title',auth.isAuthenticated, controllers.thread.viewMoreGet)
+
   app.all('*', (req, res) => {
     res.status(404)
     res.send('404 Not Found!')
