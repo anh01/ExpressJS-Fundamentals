@@ -1,6 +1,7 @@
 <h1>Welcome!</h1>
 
 {{#if threads}}
+<<<<<<< HEAD
 
         <table border="1">
             <tr>
@@ -19,6 +20,25 @@
         {{/each}}
         </table>
 
+=======
+    <table border="1">
+        <tr>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+        {{#each threads}}
+        <tr>
+            <td>{{@index}}</td>
+            <td>{{this.title}}</td>
+            <td><a href="/thread/?id={{this._id}}">Details</a> </td>
+        </tr>
+
+
+        {{/each}}
+
+    </table>
+>>>>>>> origin/master
 
 
 {{/if}}

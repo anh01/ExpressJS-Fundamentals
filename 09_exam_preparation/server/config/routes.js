@@ -14,7 +14,15 @@ module.exports = (app) => {
     app.get('/thread/add',auth.isAuthenticated, controllers.thread.addGet)
     app.post('/thread/add',auth.isAuthenticated, controllers.thread.addPost)
 
+<<<<<<< HEAD
     app.get('/thread/:id/:title',auth.isAuthenticated, controllers.thread.viewMoreGet)
+=======
+    app.get('/thread/',auth.isAuthenticated, controllers.thread.getDetails)
+
+    app.post('/thread/addanswer/:id',auth.isAuthenticated, controllers.thread.addAnswerPost)
+
+    app.get('/profile/:username', auth.isAuthenticated, controllers.users.loadInfo)
+>>>>>>> origin/master
 
   app.all('*', (req, res) => {
     res.status(404)

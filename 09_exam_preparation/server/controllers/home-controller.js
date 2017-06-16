@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const threadsExtract = require('./thread-controller').list
 
 module.exports = {
@@ -12,6 +13,24 @@ module.exports = {
     })
 
           },
+=======
+const indexThreads = require('./thread-controller').getIndexData
+
+module.exports = {
+
+    index: (req, res) => {
+
+indexThreads().then((indexThreads) => {
+
+    res.render('home/index', {
+
+      threads: indexThreads
+    })
+
+})
+
+    },
+>>>>>>> origin/master
   about: (req, res) => {
     res.render('home/about')
   }
