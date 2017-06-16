@@ -39,14 +39,14 @@ addGet: (req, res) => {
 
     },
 
-<<<<<<< HEAD
+
 
     list: () => {
 
      return Thread.find({})
 
     },
-=======
+
     getIndexData: () => {
 
    return Thread.find({}).sort('-lastAnswerDate')
@@ -95,21 +95,7 @@ addGet: (req, res) => {
         })
 
 
-    }
->>>>>>> origin/master
-
-    viewMoreGet: (req, res) => {
-
-        let thread = req.query
-
-        console.log(thread)
-
-        // res.render('thread/viewMore')
-        //
-        // }
-    }
-
-
+    },
 
 
 
