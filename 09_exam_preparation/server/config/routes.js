@@ -18,7 +18,7 @@ module.exports = (app) => {
 
     app.post('/thread/addanswer/:id',auth.isAuthenticated, controllers.thread.addAnswerPost)
 
-    app.get('/profile/:username', controllers.users.loadInfo)
+    app.get('/profile/:username', auth.isAuthenticated, controllers.users.loadInfo)
 
   app.all('*', (req, res) => {
     res.status(404)
