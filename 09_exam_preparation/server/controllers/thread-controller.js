@@ -41,7 +41,7 @@ addGet: (req, res) => {
 
     getIndexData: () => {
 
-   return Thread.find({})
+   return Thread.find({}).sort('-lastAnswerDate')
 
     },
 
@@ -77,6 +77,7 @@ addGet: (req, res) => {
         Thread.findById(threadId).then((foundThread) =>{
 
             foundThread.answers.push(createdAnswer._id)
+            foundThread.lastAnswerDate = createdAnswer.date
             foundThread.save().then(
 
                 res.redirect(`/thread/?id=${foundThread._id}`)

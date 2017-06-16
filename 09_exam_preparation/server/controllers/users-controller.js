@@ -1,5 +1,7 @@
 const encryption = require('../utilities/encryption')
 const User = require('mongoose').model('User')
+const Thread = require('mongoose').model('Thread')
+const Answer = require('mongoose').model('Answer')
 
 module.exports = {
   registerGet: (req, res) => {
@@ -58,6 +60,33 @@ module.exports = {
         })
       })
   },
+
+
+
+    loadInfo: (req, res) =>{
+
+      let userId = req.user
+
+        console.log(userId)
+
+        Thread.find({user: userId}).then((foundThreads) => {
+
+              Answer.find({user: userId}).then((foundAnswers) => {
+
+
+                res.render('users/myprofile', {
+
+                  threads: foundThreads,
+                    answers: foundAnswers
+
+                })
+
+              })
+
+        })
+
+    },
+
   logout: (req, res) => {
     req.logout()
     res.redirect('/')
