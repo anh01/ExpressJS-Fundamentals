@@ -1,7 +1,19 @@
+const indexThreads = require('./thread-controller').getIndexData
+
 module.exports = {
-  index: (req, res) => {
-    res.render('home/index')
-  },
+
+    index: (req, res) => {
+
+indexThreads().then((indexThreads) => {
+
+    res.render('home/index', {
+
+      threads: indexThreads
+    })
+
+})
+
+    },
   about: (req, res) => {
     res.render('home/about')
   }

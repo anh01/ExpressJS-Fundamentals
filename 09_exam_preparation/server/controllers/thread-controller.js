@@ -36,7 +36,16 @@ addGet: (req, res) => {
 
 
 
+    },
+
+    getIndexData: () => {
+
+   return Thread.find({})
+
     }
+
+
+
 
 
 

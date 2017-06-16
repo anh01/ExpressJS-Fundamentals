@@ -1,1 +1,23 @@
 <h1>Welcome!</h1>
+
+{{#if threads}}
+    <table border="1">
+        <tr>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+        {{#each threads}}
+        <tr>
+            <td>{{@index}}</td>
+            <td>{{this.title}}</td>
+            <td></td>
+        </tr>
+
+
+        {{/each}}
+
+    </table>
+
+
+{{/if}}
