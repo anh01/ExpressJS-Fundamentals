@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../data/User')
 const Thread = require('../data/Thread')
+const Answer = require('../data/Answer')
 
 mongoose.Promise = global.Promise
 

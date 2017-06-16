@@ -2,6 +2,7 @@
  * Created by apetrov on 6/15/2017.
  */
 const Thread = require('mongoose').model('Thread')
+const Answer = require('mongoose').model('Answer')
 
 
 module.exports = {
@@ -41,6 +42,49 @@ addGet: (req, res) => {
     getIndexData: () => {
 
    return Thread.find({})
+
+    },
+
+    getDetails: (req, res) => {
+
+        let id = req.query.id
+
+        Thread.findById(id)
+            .populate('answers')
+            .then((foundThread) => {
+
+            res.render('thread/details', {
+
+                thread: foundThread
+            })
+
+        })
+
+    },
+
+    addAnswerPost: (req, res) => {
+
+        let threadId = req.params.id
+        let answerData = req.body.content
+
+        Answer.create({
+
+            content: answerData,
+            user: req.user._id
+
+        }).then((createdAnswer) => {
+
+        Thread.findById(threadId).then((foundThread) =>{
+
+            foundThread.answers.push(createdAnswer._id)
+            foundThread.save().then(
+
+                res.redirect(`/thread/?id=${foundThread._id}`)
+            )
+        })
+
+        })
+
 
     }
 

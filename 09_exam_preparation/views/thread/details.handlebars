@@ -1,0 +1,20 @@
+{{#if thread}}
+    <h1>{{thread.title}}</h1>
+    <p>{{thread.content}}</p>
+
+    <br>
+    Answers:
+    <br>
+    <hr>
+    {{#each thread.answers}}
+
+        <p>{{this.content}}</p>
+
+    {{/each}}
+
+    <form action="/thread/addanswer/{{thread._id}}" method="post">
+        <input type="text" name="content">
+        <input type="submit" value="Add Answer">
+    </form>
+
+{{/if}}
