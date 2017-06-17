@@ -23,6 +23,16 @@ module.exports = {
         res.redirect('/admin/all')
       })
     })
+  },
+
+  blockUser: (req, res) => {
+    let username = req.body.username
+    User.findOne({username: username}).then((foundUser) => {
+      foundUser.isblocked = true
+      foundUser.save().then((updatedUser) => {
+        res.redirect('/admin/all')
+      })
+    })
   }
 
 }

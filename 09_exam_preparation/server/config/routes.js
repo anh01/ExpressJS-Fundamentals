@@ -11,8 +11,8 @@ module.exports = (app) => {
   app.post('/users/login', controllers.users.loginPost)
   app.post('/users/logout', controllers.users.logout)
 
-  app.get('/thread/add', auth.isAuthenticated, controllers.thread.addGet)
-  app.post('/thread/add', auth.isAuthenticated, controllers.thread.addPost)
+  app.get('/thread/add', auth.isAuthAndNotBlocked, controllers.thread.addGet)
+  app.post('/thread/add', auth.isAuthAndNotBlocked, controllers.thread.addPost)
 
   app.get('/answer/edit/', auth.isInRole('Admin'), controllers.answers.editGet)
   app.post('/answer/edit/:id', auth.isInRole('Admin'), controllers.answers.editPost)
@@ -24,17 +24,23 @@ module.exports = (app) => {
 
   app.get('/thread/', auth.isAuthenticated, controllers.thread.getDetails)
 
-  app.post('/thread/addanswer/:id', auth.isAuthenticated, controllers.thread.addAnswerPost)
+  app.post('/thread/addanswer/:id', auth.isAuthAndNotBlocked, controllers.thread.addAnswerPost)
 
   app.get('/profile/:username', auth.isAuthenticated, controllers.users.loadInfo)
 
   app.get('/admin/all', auth.isInRole('Admin'), controllers.admin.viewAllGet)
   app.post('/admin/all', auth.isInRole('Admin'), controllers.admin.addNewAdminPost)
 
+  app.post('/admin/block', auth.isInRole('Admin'), controllers.admin.blockUser)
+
   app.get('/list', auth.isAuthenticated, controllers.thread.list)
+  app.get('/list/:category', auth.isAuthenticated, controllers.thread.listByCategory)
 
   app.post('/users/like/:id', auth.isAuthenticated, controllers.users.like)
   app.post('/users/dislike/:id', auth.isAuthenticated, controllers.users.dislike)
+
+  app.get('/category/add', auth.isInRole('Admin'), controllers.category.addGet)
+  app.post('/category/add', auth.isInRole('Admin'), controllers.category.addPost)
 
   app.all('*', (req, res) => {
     res.status(404)

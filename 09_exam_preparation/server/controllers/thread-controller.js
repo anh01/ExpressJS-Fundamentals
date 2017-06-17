@@ -3,11 +3,16 @@
  */
 const Thread = require('mongoose').model('Thread')
 const Answer = require('mongoose').model('Answer')
+const Category = require('mongoose').model('Category')
 
 module.exports = {
 
   addGet: (req, res) => {
-    res.render('thread/add')
+    Category.find({}).then((foundCategories) => {
+      res.render('thread/add', {
+        categories: foundCategories
+      })
+    })
   },
 
   addPost: (req, res) => {
@@ -18,7 +23,8 @@ module.exports = {
       title: newThreadObj.title,
       content: newThreadObj.content,
       user: req.user,
-      answers: []
+      answers: [],
+      category: newThreadObj.category
 
     }).then((newThread) => {
       res.locals.globalMessage = 'Thread created!'
@@ -52,8 +58,7 @@ module.exports = {
   getDetails: (req, res) => {
     let id = req.query.id
 
-      let userHasLiked = req.user.likedThreads.indexOf(id) > 0
-
+    let userHasLiked = req.user.likedThreads.indexOf(id) > 0
 
     Thread.findById(id)
             .populate('answers')
@@ -63,7 +68,7 @@ module.exports = {
                 res.render('thread/details', {
 
                   thread: foundThread,
-                    userHasLiked: userHasLiked
+                  userHasLiked: userHasLiked
                 })
               })
             })
@@ -109,6 +114,18 @@ module.exports = {
         })
       })
     })
+  },
+
+  listByCategory: (req, res) => {
+    Category.find({name: req.params.category}).then((foundCat) => {
+      Thread.find({category: foundCat}).then((foundThreads) => {
+        res.render('thread/list', {
+          threads: foundThreads
+        })
+      })
+    }
+
+    )
   }
 
 }

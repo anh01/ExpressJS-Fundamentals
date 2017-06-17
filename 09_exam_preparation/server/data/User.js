@@ -10,7 +10,8 @@ let userSchema = new mongoose.Schema({
   salt: String,
   hashedPass: String,
   roles: [String],
-  likedThreads: [{type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }]
+  likedThreads: [{type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],
+  isblocked: {type: Boolean}
 })
 
 userSchema.method({

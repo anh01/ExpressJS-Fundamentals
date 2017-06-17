@@ -6,6 +6,15 @@
     Content:
     <input type="text" name="content">
     </br>
+    Category:
+    <select name="category">
+        {{#each categories}}
+            <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+
+    </select>
+
+
     <input type="submit" name="Add Thread">
 
 

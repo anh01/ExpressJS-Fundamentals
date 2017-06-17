@@ -84,30 +84,38 @@ module.exports = {
   like: (req, res) => {
     let threadId = req.params.id
 
-        if(req.user.likedThreads.indexOf(threadId) > 0){
+    if (req.user.likedThreads.indexOf(threadId) > 0) {
+      res.render('home/index')
+    } else {
+      req.user.likedThreads.push(threadId)
+      req.user.save().then(() => {
+        Thread.findById(threadId).then((foundThread) => {
+          foundThread.likes++
+          foundThread.save().then(() => {
+            res.render('thread/details', {
 
-          res.render('home/index')
+              userHasLiked: true,
+              thread: foundThread
 
-        } else {
-            req.user.likedThreads.push(threadId)
-            req.user.save().then(() => {
-            Thread.findById(threadId).then((foundThread) => {
-                foundThread.likes++
-                foundThread.save().then(() => {
-                    res.render('thread/details', {
-
-                        userHasLiked: true,
-                        thread: foundThread
-
-                    })
-                })
             })
-        })}
-
-
+          })
+        })
+      })
+    }
   },
 
   dislike: (req, res) => {
-
+    User.update({_id: req.user._id}, { $pullAll: {likedThreads: [req.params.id] } }).then(() => {
+      Thread.findById(req.params.id).then((foundThread) => {
+        foundThread.likes--
+        foundThread.save().then(() => {
+          res.render('thread/details', {
+            thread: foundThread,
+            userHasLiked: false
+          })
+        })
+      })
+    })
   }
+
 }
