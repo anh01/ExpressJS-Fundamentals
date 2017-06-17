@@ -1,5 +1,4 @@
 
-const threadsExtract = require('./thread-controller').list
 const indexThreads = require('./thread-controller').getIndexData
 
 module.exports = {

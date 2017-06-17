@@ -9,7 +9,8 @@
     <ul class="menu">
       <li><a href="/">Home</a></li>
       <li><a href="/about">About</a></li>
-      <li></li>
+        <li><a href="/list">List</a></li>
+
       {{#if currentUser}}
           <li><a href="/thread/add">Add thread</a> </li>
 
@@ -24,6 +25,7 @@
               <li><a href="/admin/all">View admins</a></li>
           {{/if}}
       {{else}}
+
         <li><a href="/users/register">Register</a></li>
         <li><a href="/users/login">Login</a></li>
       {{/if}}

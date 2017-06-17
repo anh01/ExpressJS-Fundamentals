@@ -8,7 +8,9 @@ let threadSchema = new mongoose.Schema({
   content: { type: String, required: REQUIRED_VALIDATION_MESSAGE },
   user: { type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE, ref: 'User'},
   answers: [{type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE, ref: 'Answer' }],
-  lastAnswerDate: {type: mongoose.Schema.Types.Date, required: true}
+  lastAnswerDate: {type: mongoose.Schema.Types.Date},
+  views: {type: Number, default: 0},
+  likes: {type: Number, default: 0}
 
 })
 

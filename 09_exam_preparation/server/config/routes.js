@@ -29,7 +29,12 @@ module.exports = (app) => {
   app.get('/profile/:username', auth.isAuthenticated, controllers.users.loadInfo)
 
   app.get('/admin/all', auth.isInRole('Admin'), controllers.admin.viewAllGet)
-    app.post('/admin/all', auth.isInRole('Admin'), controllers.admin.addNewAdminPost)
+  app.post('/admin/all', auth.isInRole('Admin'), controllers.admin.addNewAdminPost)
+
+  app.get('/list', auth.isAuthenticated, controllers.thread.list)
+
+  app.post('/users/like/:id', auth.isAuthenticated, controllers.users.like)
+  app.post('/users/dislike/:id', auth.isAuthenticated, controllers.users.dislike)
 
   app.all('*', (req, res) => {
     res.status(404)

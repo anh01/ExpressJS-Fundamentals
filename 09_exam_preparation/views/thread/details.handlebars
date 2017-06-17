@@ -1,6 +1,19 @@
 {{#if thread}}
     <h1>{{thread.title}}</h1>
     <p>{{thread.content}}</p>
+
+    <h3>Number of views: {{thread.views}}</h3>
+    <h3>Number of likes: {{thread.likes}}</h3>
+
+    {{#if userHasLiked}}
+        <form method="post" action="/users/dislike/{{thread._id}}">
+            <input type="submit" value="Dislike">
+        </form>
+    {{else}}
+        <form method="post" action="/users/like/{{thread._id}}">
+            <input type="submit" value="Like">
+        </form>
+    {{/if}}
 <a href="/thread/edit/?id={{thread._id}}">Edit thread</a>
     <a href="/thread/delete/?id={{thread._id}}">Delete thread</a>
     <br>

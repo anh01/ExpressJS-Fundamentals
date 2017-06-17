@@ -64,8 +64,6 @@ module.exports = {
   loadInfo: (req, res) => {
     let userId = req.user
 
-    console.log(userId)
-
     Thread.find({user: userId}).then((foundThreads) => {
       Answer.find({user: userId}).then((foundAnswers) => {
         res.render('users/myprofile', {
@@ -81,5 +79,35 @@ module.exports = {
   logout: (req, res) => {
     req.logout()
     res.redirect('/')
+  },
+
+  like: (req, res) => {
+    let threadId = req.params.id
+
+        if(req.user.likedThreads.indexOf(threadId) > 0){
+
+          res.render('home/index')
+
+        } else {
+            req.user.likedThreads.push(threadId)
+            req.user.save().then(() => {
+            Thread.findById(threadId).then((foundThread) => {
+                foundThread.likes++
+                foundThread.save().then(() => {
+                    res.render('thread/details', {
+
+                        userHasLiked: true,
+                        thread: foundThread
+
+                    })
+                })
+            })
+        })}
+
+
+  },
+
+  dislike: (req, res) => {
+
   }
 }

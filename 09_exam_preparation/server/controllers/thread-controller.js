@@ -26,23 +26,45 @@ module.exports = {
     })
   },
 
-  list: () => {
-    return Thread.find({})
+  list: (req, res) => {
+    let itemsPerPage = 2
+    let page = parseInt(req.query.page) || 1
+
+    Thread.find({})
+        .sort('-lastAnswerDate')
+        .skip((page - 1) * itemsPerPage)
+        .limit(itemsPerPage)
+        .then((threads) => {
+          res.render('thread/list', {
+            threads: threads,
+            hasPreviousPage: page > 1,
+            hasNextPage: threads.length > 0,
+            prevPage: page - 1,
+            nextPage: page + 1
+          })
+        })
   },
 
   getIndexData: () => {
-    return Thread.find({}).sort('-lastAnswerDate')
+    return Thread.find({}).sort('-lastAnswerDate').limit(20)
   },
 
   getDetails: (req, res) => {
     let id = req.query.id
 
+      let userHasLiked = req.user.likedThreads.indexOf(id) > 0
+
+
     Thread.findById(id)
             .populate('answers')
             .then((foundThread) => {
-              res.render('thread/details', {
+              foundThread.views++
+              foundThread.save().then(() => {
+                res.render('thread/details', {
 
-                thread: foundThread
+                  thread: foundThread,
+                    userHasLiked: userHasLiked
+                })
               })
             })
   },

@@ -14,21 +14,15 @@ module.exports = {
     })
   },
 
-    addNewAdminPost: (req, res) => {
+  addNewAdminPost: (req, res) => {
+    let username = req.body.username
 
-      let username = req.body.username
-
-        User.findOne({username: username}).then((foundUser) => {
-
-          foundUser.roles = ['Admin']
-            foundUser.save().then((updatedUser) => {
-
-              res.redirect('/admin/all')
-          })
-
-        })
-
-    }
-
+    User.findOne({username: username}).then((foundUser) => {
+      foundUser.roles = ['Admin']
+      foundUser.save().then((updatedUser) => {
+        res.redirect('/admin/all')
+      })
+    })
+  }
 
 }
