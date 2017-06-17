@@ -61,31 +61,22 @@ module.exports = {
       })
   },
 
+  loadInfo: (req, res) => {
+    let userId = req.user
 
+    console.log(userId)
 
-    loadInfo: (req, res) =>{
+    Thread.find({user: userId}).then((foundThreads) => {
+      Answer.find({user: userId}).then((foundAnswers) => {
+        res.render('users/myprofile', {
 
-      let userId = req.user
-
-        console.log(userId)
-
-        Thread.find({user: userId}).then((foundThreads) => {
-
-              Answer.find({user: userId}).then((foundAnswers) => {
-
-
-                res.render('users/myprofile', {
-
-                  threads: foundThreads,
-                    answers: foundAnswers
-
-                })
-
-              })
+          threads: foundThreads,
+          answers: foundAnswers
 
         })
-
-    },
+      })
+    })
+  },
 
   logout: (req, res) => {
     req.logout()

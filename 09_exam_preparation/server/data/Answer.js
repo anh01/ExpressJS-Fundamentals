@@ -8,13 +8,10 @@ const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
 let answerSchema = new mongoose.Schema({
 
-    content: { type: String, required: REQUIRED_VALIDATION_MESSAGE},
-    user: { type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE, ref: 'User'},
-    date: {type: mongoose.Schema.Types.Date, default: Date.now()}
-
+  content: { type: String, required: REQUIRED_VALIDATION_MESSAGE},
+  user: { type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE, ref: 'User'},
+  date: {type: mongoose.Schema.Types.Date, default: Date.now()}
 
 })
-
-
 
 let Answer = mongoose.model('Answer', answerSchema)

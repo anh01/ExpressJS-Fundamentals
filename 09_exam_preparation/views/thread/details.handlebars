@@ -1,8 +1,8 @@
 {{#if thread}}
     <h1>{{thread.title}}</h1>
     <p>{{thread.content}}</p>
-<a href="/thread/?id={{thread._id}}">Edit thread</a>
-    <a href="/thread/?id={{thread._id}}">Delete thread</a>
+<a href="/thread/edit/?id={{thread._id}}">Edit thread</a>
+    <a href="/thread/delete/?id={{thread._id}}">Delete thread</a>
     <br>
     Answers:
     <br>
@@ -10,8 +10,10 @@
     {{#each thread.answers}}
 
         <p>{{this.content}}</p>
-        <a href="/thread/?id={{this._id}}">Edit answer</a>
-        <a href="/thread/?id={{this._id}}">Delete answer</a>
+        <a href="/answer/edit/?id={{this._id}}">Edit answer</a>
+        <form method="post" action="/answer/delete/{{this._id}}/{{../thread._id}}">
+            <input type="submit" value="Delete Answer">
+        </form>
 
     {{/each}}
 

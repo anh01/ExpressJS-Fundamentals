@@ -2,25 +2,19 @@
 const threadsExtract = require('./thread-controller').list
 const indexThreads = require('./thread-controller').getIndexData
 
-
 module.exports = {
 
-    index: (req, res) => {
+  index: (req, res) => {
+    indexThreads().then((indexThreads) => {
+      res.render('home/index', {
 
-indexThreads().then((indexThreads) => {
-
-    res.render('home/index', {
-
-      threads: indexThreads
+        threads: indexThreads
+      })
     })
-
-})
-
-    },
+  },
 
   about: (req, res) => {
     res.render('home/about')
   }
-
 
 }
