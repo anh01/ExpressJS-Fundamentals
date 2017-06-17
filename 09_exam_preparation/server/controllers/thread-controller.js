@@ -81,12 +81,11 @@ module.exports = {
     Thread.findById(threadID).then((foundThread) => {
       foundThread.title = editedThreadObject.title || foundThread.title,
           foundThread.content = editedThreadObject.content || foundThread.content
-        foundThread.save().then((savedThread) =>{
-
-          res.render('thread/details', {
-              thread: savedThread
-          })
+      foundThread.save().then((savedThread) => {
+        res.render('thread/details', {
+          thread: savedThread
         })
+      })
     })
   }
 

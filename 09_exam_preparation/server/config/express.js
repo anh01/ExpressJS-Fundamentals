@@ -24,6 +24,9 @@ module.exports = (app) => {
     if (req.user) {
       res.locals.currentUser = req.user
     }
+    if (req.isAuthenticated() && req.user.roles.indexOf('Admin') > -1) {
+      res.locals.isAdmin = true
+    }
 
     next()
   })

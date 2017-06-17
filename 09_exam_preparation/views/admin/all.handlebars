@@ -1,0 +1,13 @@
+{{#each admins}}
+
+    <p>{{this.username}}</p>
+
+{{/each}}
+
+
+<form method="post" action="/admin/all">
+    <input type="text" name="username">
+    <input type="submit" value="Add user to Admin group">
+
+
+</form>
