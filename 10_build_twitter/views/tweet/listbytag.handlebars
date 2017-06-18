@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>Num</th>
+        <th>Tweet</th>
+
+    </tr>
+
+    {{#each tweets}}
+    <tr>
+        <td>{{@index}}</td>
+    <td>{{this.content}}</td>
+    </tr>
+
+    {{/each}}
+
+</table>
