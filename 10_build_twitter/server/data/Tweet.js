@@ -7,10 +7,10 @@ const encryption = require('../utilities/encryption')
 const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
 let tweetSchema = new mongoose.Schema({
-    content: { type: String, required: REQUIRED_VALIDATION_MESSAGE, maxlength: 140},
-    tags: [],
-    createdOn: {type: Date, default: Date.now()},
-    users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+  content: { type: String, required: REQUIRED_VALIDATION_MESSAGE, maxlength: 140},
+  tags: [],
+  createdOn: {type: Date, default: Date.now()},
+  users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 
 })
 
