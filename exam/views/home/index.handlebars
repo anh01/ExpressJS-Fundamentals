@@ -1,0 +1,35 @@
+<h1>Hi, Welcome to messenger !</h1>
+
+
+
+{{#if foundUser}}
+
+    <form method="post" action="/thread/new/{{userTwo}}">
+        <input type="text" name="userTwo" value="{{userTwo}}">
+        <input type="submit" value="Start Chat">
+    </form>
+
+{{else}}
+
+    <form method="post" action="/users/search">
+        <input type="text" name="searchUser">
+        <input type="submit" value="searchUser">
+    </form>
+
+
+{{/if}}
+
+{{#if threads}}
+
+    <h2>Old chats:</h2>
+{{#each threads}}
+
+    <a href="/thread/old/{{this._id}}">Chat number {{@index}}</a>
+
+
+
+
+
+{{/each}}
+
+{{/if}}

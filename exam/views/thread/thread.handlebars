@@ -1,0 +1,65 @@
+{{#if thread}}
+
+    <div border="1">
+        {{#each thread.messages}}
+
+            {{#if this.isLink}}
+
+                {{#if this.isImage}}
+                    <span><h2>{{this.owner}}</h2><img src="{{this.content}}"></img></span>
+                    {{else}}
+                    <span><h2>{{this.owner}}</h2><a href="{{this.content}}" target="_blank">{{this.content}}</a></span>
+                {{/if}}
+
+
+
+                {{else}}
+
+                <span><h2>{{this.owner}}</h2><p>{{this.content}}</p></span>
+            {{/if}}
+
+
+
+        {{#if this.isLiked}}
+            <form method="post" action="/message/dislike/{{this._id}}/{{../thread._id}}">
+                <input type="submit" value="Dislike">
+            </form>
+
+        {{else}}
+            <form method="post" action="/message/like/{{this._id}}/{{../thread._id}}">
+                <input type="submit" value="Like">
+            </form>
+
+        {{/if}}
+
+<hr>
+
+
+        {{/each}}
+    </div>
+
+{{#if userIsBlocked}}
+
+{{else}}
+
+    <form method="post" action="/thread/addMessage/{{thread._id}}">
+
+        <input type="text" name="message">
+        <input type="submit" value="Send message">
+
+    </form>
+
+{{/if}}
+
+
+
+    {{#if otherUser}}
+    <form method="post" action="/thread/block/{{otherUser}}/{{thread._id}}">
+
+
+        <input type="submit" value="Block this user">
+
+    </form>
+    {{/if}}
+
+{{/if}}
